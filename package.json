@@ -1,5 +1,5 @@
 {
-  "name": "multienv",
+  "name": "multienv-loader",
   "version": "1.0.0",
   "description": "A configurable dotenv loader for multiple environments",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/frandiox/multienv.git"
+    "url": "git+https://github.com/frandiox/multienv-loader.git"
   },
   "keywords": [
     "env",
@@ -20,9 +20,9 @@
   "author": "Fran Dios <me@frandiox.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/frandiox/multienv/issues"
+    "url": "https://github.com/frandiox/multienv-loader/issues"
   },
-  "homepage": "https://github.com/frandiox/multienv#readme",
+  "homepage": "https://github.com/frandiox/multienv-loader#readme",
   "devDependencies": {
     "coveralls": "^3.0.1",
     "jest": "^23.1.0"

@@ -1,18 +1,18 @@
-[![Build Status](https://travis-ci.org/frandiox/multienv.svg?branch=master)](https://travis-ci.org/frandiox/multienv)
-[![Coverage Status](https://coveralls.io/repos/github/frandiox/multienv/badge.svg?branch=master)](https://coveralls.io/github/frandiox/multienv?branch=master)
+[![Build Status](https://travis-ci.org/frandiox/multienv-loader.svg?branch=master)](https://travis-ci.org/frandiox/multienv-loader)
+[![Coverage Status](https://coveralls.io/repos/github/frandiox/multienv-loader/badge.svg?branch=master)](https://coveralls.io/github/frandiox/multienv-loader?branch=master)
 
-# Multienv
+# Multienv Loader
 
 > A configurable `.env` file loader for multiple environments inspired by [dotenv](https://github.com/motdotla/dotenv) and [vue-cli](https://github.com/vuejs/vue-cli)
 
 ## Installation
 
 ```bash
-yarn add -D multienv
+yarn add -D multienv-loader
 ```
 
 ```bash
-npm install multienv --save-dev
+npm install multienv-loader --save-dev
 ```
 
 ## Usage
@@ -20,7 +20,7 @@ npm install multienv --save-dev
 At the top of your entry file:
 
 ```js
-require('multienv').load() // or load(options)
+require('multienv-loader').load() // or load(options)
 ```
 
 #### Options
