@@ -24,6 +24,13 @@ describe('@utils/multienv', () => {
       expect(result).toHaveProperty('B', '1\n2\n3')
       expect(result).toHaveProperty('C', '3')
     })
+
+    it('parses empty values', () => {
+      const result = multienv.parse('A=1\nB=\nC=3')
+      expect(result).toHaveProperty('A', '1')
+      expect(result).toHaveProperty('B', '')
+      expect(result).toHaveProperty('C', '3')
+    })
   })
 
   describe('safeLoad', () => {
