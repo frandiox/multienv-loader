@@ -1,7 +1,7 @@
 {
   "name": "multienv",
   "version": "1.0.0",
-  "description": "Load env variables from multiple dotenv files",
+  "description": "A configurable dotenv loader for multiple environments",
   "main": "index.js",
   "scripts": {
     "test": "jest"
@@ -24,6 +24,10 @@
   },
   "homepage": "https://github.com/frandiox/multienv#readme",
   "devDependencies": {
+    "coveralls": "^3.0.1",
     "jest": "^23.1.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
   }
 }
