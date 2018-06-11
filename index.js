@@ -1,4 +1,4 @@
-/* MULTIENV: dotenv loader for multiple environments */
+/* MULTIENV LOADER: dotenv loader for multiple environments */
 /* Loads env variables from dotenv files: .env, .env.[NODE_ENV], .env.local, .env.[NODE_ENV].local */
 
 const fs = require('fs')
@@ -41,7 +41,8 @@ module.exports = {
    */
   safeLoad(path = '.env') {
     try {
-      return this.parse(fs.readFileSync(path, 'utf-8'))
+      const content = fs.readFileSync(path, 'utf-8')
+      return this.parse(content)
     } catch (err) {
       // only ignore error if file is not found
       if (err.toString().indexOf('ENOENT') < 0) {
