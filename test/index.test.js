@@ -80,7 +80,7 @@ describe('@utils/multienv', () => {
     const TEST3 = 'TEST3'
     const MODIFIED = 'modified'
     const ORIGINAL = 'original'
-    const input = { ...vars, [TEST3]: MODIFIED }
+    const input = Object.freeze(Object.assign({ [TEST3]: MODIFIED }, vars))
     const res = expect.objectContaining(vars)
 
     beforeEach(() => {
