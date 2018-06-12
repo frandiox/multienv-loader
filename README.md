@@ -8,11 +8,11 @@
 ## Installation
 
 ```bash
-yarn add -D multienv-loader
+yarn add multienv-loader
 ```
 
 ```bash
-npm install multienv-loader --save-dev
+npm install multienv-loader
 ```
 
 ## Usage
