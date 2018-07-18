@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const multienv = require('../index')
+const multienv = require('..')
 
 const dotenvPath = path.resolve(__dirname, 'fixtures', '.env')
 const dotenvContent = fs.readFileSync(dotenvPath, 'utf8')
@@ -9,7 +9,7 @@ const vars = { TEST1: 'TEST1', TEST2: 'TEST2' }
 const cleanEnv = o => Object.keys(o).forEach(key => delete process.env[key])
 Object.freeze(vars)
 
-describe('@utils/multienv', () => {
+describe('multienv', () => {
   describe('parse', () => {
     it('correctly turns string into object', () => {
       const result = multienv.parse('A=1\nB=2\nC=3')
@@ -114,7 +114,13 @@ describe('@utils/multienv', () => {
 
   describe('load', () => {
     const envPath = path.resolve(__dirname, './fixtures')
-    const mode = 'test'
+    const mode = process.env.NODE_ENV || 'test'
+    const envFiles = [
+      '\\.env',
+      `\\.env\\.${mode}`,
+      '\\.env\\.local',
+      `\\.env\\.${mode}.local`,
+    ]
     const res = expect.objectContaining({
       FIRST: '111',
       SECOND: 'bbb',
@@ -130,7 +136,35 @@ describe('@utils/multienv', () => {
 
       expect(multienv.load({ envPath, mode, dry })).toEqual(vars)
 
-      expect(spySafeLoad).toHaveBeenCalledTimes(4)
+      expect(spySafeLoad).toHaveBeenCalledTimes(envFiles.length)
+      envFiles.forEach((envFile, index) => {
+        expect(spySafeLoad).toHaveBeenNthCalledWith(
+          index + 1,
+          expect.stringMatching(new RegExp(`${envFile}$`))
+        )
+      })
+
+      spySafeLoad.mockRestore()
+    })
+
+    it('works with default values', () => {
+      const spySafeLoad = jest.spyOn(multienv, 'safeLoad')
+      spySafeLoad.mockImplementation(() => null)
+
+      const spyLoadEnv = jest.spyOn(multienv, 'loadEnv')
+      spySafeLoad.mockImplementationOnce(() => null)
+
+      const result = multienv.load()
+
+      expect(spyLoadEnv).toHaveBeenCalledWith(result, { override: false })
+
+      expect(spySafeLoad).toHaveBeenCalledTimes(envFiles.length)
+      envFiles.forEach((envFile, index) => {
+        expect(spySafeLoad).toHaveBeenNthCalledWith(
+          index + 1,
+          expect.stringMatching(new RegExp(`${envFile}$`))
+        )
+      })
 
       spySafeLoad.mockRestore()
     })
