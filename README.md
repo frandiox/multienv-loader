@@ -8,11 +8,11 @@
 ## Installation
 
 ```bash
-yarn add -D multienv-loader
+yarn add multienv-loader
 ```
 
 ```bash
-npm install multienv-loader --save-dev
+npm install multienv-loader
 ```
 
 ## Usage
@@ -21,6 +21,12 @@ At the top of your entry file:
 
 ```js
 require('multienv-loader').load() // or load(options)
+```
+
+Or directly from terminal (without options):
+
+```sh
+node -r multienv-loader/load your_script.js
 ```
 
 #### Options
