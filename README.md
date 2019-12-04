@@ -36,6 +36,7 @@ node -r multienv-loader/load your_script.js
 - `options.envFiles`: Array of dotenv filenames to load in order. Defaults to `['.env', '.env.[mode]', '.env.local', '.env.[mode].local']`
 - `options.dry`: Does not modify `process.env`. Defaults to `false`
 - `options.override`: Existing variables in `process.env` will be overriden by the dotenv files. Defaults to `false`
+- `options.filter`: Function that gets a variable name as first argument and returns whether or not it should be loaded. Defaults to `() => true`
 
 #### Recommended `.gitignore`
 

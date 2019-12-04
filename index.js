@@ -14,6 +14,7 @@ const multienv = {}
  * @param {Array=} options.envFiles Array of env files to load. Defaults to `['.env', '.env.[mode]', '.env.local', '.env.[mode].local']`
  * @param {Boolean=} options.dry Whether it should modify `process.env` or just return the result
  * @param {Boolean=} options.override Whether it should override variables already defined in `process.env`
+ * @param {function=} options.filter Use variable only if filter returns `true`
  * @return {Object} Object containing all the key:value from the src files
  */
 multienv.load = function({
@@ -22,6 +23,7 @@ multienv.load = function({
   envFiles = ['.env', `.env.${mode}`, '.env.local', `.env.${mode}.local`],
   dry = false,
   override = false,
+  filter,
 } = {}) {
   const env = Object.assign.apply(
     null,
@@ -30,7 +32,7 @@ multienv.load = function({
     )
   )
 
-  if (!dry) multienv.loadEnv(env, { override })
+  if (!dry) multienv.loadEnv(env, { override, filter })
 
   return env
 }
@@ -59,10 +61,11 @@ multienv.safeLoad = function(path = '.env') {
  * @param {Object} env Object containing all the key:value from the src
  * @param {Object=} options
  * @param {Boolean=} options.override Whether it should override variables already defined in `process.env`
+ * @param {function=} options.filter Use only variables that if the filter returns true
  */
-multienv.loadEnv = function(env, { override } = {}) {
+multienv.loadEnv = function(env, { override, filter = () => true } = {}) {
   Object.keys(env).forEach(key => {
-    if (override || process.env[key] === undefined) {
+    if ((override || process.env[key] === undefined) && filter(key)) {
       process.env[key] = env[key]
     }
   })

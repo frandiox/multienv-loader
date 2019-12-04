@@ -110,6 +110,14 @@ describe('multienv', () => {
       expect(process.env).toEqual(res)
       expect(process.env).toHaveProperty(TEST3, MODIFIED)
     })
+
+    it('filters variables', () => {
+      multienv.loadEnv(input, { filter: key => key === TEST3 })
+
+      expect(process.env).toHaveProperty(TEST3, ORIGINAL)
+      expect(process.env).not.toHaveProperty('TEST1')
+      expect(process.env).not.toHaveProperty('TEST2')
+    })
   })
 
   describe('load', () => {
