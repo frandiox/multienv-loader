@@ -7,14 +7,14 @@ const path = require('path')
 const multienv = {}
 
 /**
- * @description Main entry point. Loads env variables from dotenv files
- * @param {Object=} options
- * @param {String=} options.mode Mode provided in `process.env.NODE_END`
- * @param {String=} options.envPath Path of the dotenv files. Defaults to `process.cwd()`
- * @param {Array=} options.envFiles Array of env files to load. Defaults to `['.env', '.env.[mode]', '.env.local', '.env.[mode].local']`
- * @param {Boolean=} options.dry Whether it should modify `process.env` or just return the result
- * @param {Boolean=} options.override Whether it should override variables already defined in `process.env`
- * @param {function=} options.filter Use variable only if filter returns `true`
+ * @description Loads env variables from dotenv files into process.env
+ * @param {Object} [options]
+ * @param {String} [options.mode = process.env.NODE_ENV] - Current mode or environment (production, development...)
+ * @param {String} [options.envPath = process.cwd()] - Path where the dotenv files are located
+ * @param {String[]} [options.envFiles = ['.env', '.env.[mode]', '.env.local', '.env.[mode].local']] - Array of env files to load
+ * @param {Boolean} [options.dry = false] - Whether it should modify `process.env` or just return the result
+ * @param {Boolean} [options.override = false] - Whether it should override variables already defined in `process.env`
+ * @param {Function} [options.filter] - Use variable only if filter returns `true`. Gets the variable name as its only parameter
  * @return {Object} Object containing all the key:value from the src files
  */
 multienv.load = function({
@@ -39,7 +39,7 @@ multienv.load = function({
 
 /**
  * @description Loads the given dotenv safely, silently ignoring non existing files
- * @param {String} path Dotenv file path to load
+ * @param {String} path - Dotenv file path to load
  * @return {Object} Object containing all the key:value from the src
  */
 multienv.safeLoad = function(path = '.env') {
@@ -58,10 +58,10 @@ multienv.safeLoad = function(path = '.env') {
 
 /**
  * @description Loads the given env variables
- * @param {Object} env Object containing all the key:value from the src
- * @param {Object=} options
- * @param {Boolean=} options.override Whether it should override variables already defined in `process.env`
- * @param {function=} options.filter Use only variables that if the filter returns true
+ * @param {Object} env - Object containing all the key:value from the src
+ * @param {Object} [options]
+ * @param {Boolean} [options.override] - Whether it should override variables already defined in `process.env`
+ * @param {function} [options.filter] - Use only variables that if the filter returns true
  */
 multienv.loadEnv = function(env, { override, filter = () => true } = {}) {
   Object.keys(env).forEach(key => {
@@ -73,7 +73,7 @@ multienv.loadEnv = function(env, { override, filter = () => true } = {}) {
 
 /**
  * @description Parses a dotenv-like string into an object
- * @param {String} src Content of a dotenv file (`key=value` lines)
+ * @param {String} src - Content of a dotenv file (`key=value` lines)
  * @return {Object} Object containing all the key:value from the src
  */
 multienv.parse = function(src = '') {
