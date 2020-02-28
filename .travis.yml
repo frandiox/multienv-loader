@@ -2,8 +2,7 @@ language: node_js
 cache: yarn
 node_js:
   - stable
-  - "8"
-  - "6"
+  - "10"
 
 script: yarn test
 
